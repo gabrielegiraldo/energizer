@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/gabrielegiraldo/energizer/blob/v0.10.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/gabrielegiraldo/energizer/blob/main/DESCRIPTION)
 
 Giraldo G (2026). *energizer: A Client For Accessing The Open Data
 Communities EPC API*. R package version 0.10.0,
