@@ -1,0 +1,43 @@
+Package: energizer
+Title: A Client For Accessing The Open Data Communities EPC API
+Version: 0.10.0
+Authors@R: 
+    person("Gabriele", "Giraldo", , "giraldo.gabriele@outlook.it", role = c("aut", "cre"))
+Description: An R client for the UK's Open Data Communities API, providing
+    programmatic access to Energy Performance Certificate (EPC) and Display
+    Energy Certificate (DEC) data for domestic, non-domestic, and public
+    buildings. Includes functions for searching, retrieving certificates and
+    recommendations, and downloading bulk data files.
+License: MIT + file LICENSE
+URL: https://github.com/gggiraldo/energizer
+BugReports: https://github.com/gggiraldo/energizer/issues
+Depends: 
+  R (>= 4.1)
+Imports:
+  base64enc,
+  cli (>= 3.0.0),
+  data.table,
+  dplyr (>= 1.0.0),
+  httr2,
+  janitor,
+  jsonlite,
+  purrr,
+  rlang,
+  stringr,
+  tibble,
+  tidyr,
+  tidyselect,
+  magrittr,
+  fs,
+  rio
+Suggests: 
+    testthat (>= 3.3.1),
+    withr,
+    mockery,
+    knitr
+VignetteBuilder:
+  knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
