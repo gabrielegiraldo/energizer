@@ -10,10 +10,6 @@
 coverage](https://codecov.io/gh/gggiraldo/enrgz/graph/badge.svg)](https://app.codecov.io/gh/gggiraldo/enrgz)
 <!-- badges: end -->
 
-The goal of energizer is to …
-
-## Installation
-
 R Interface to get EPC data using the OpenDataCommunities API
 
 ## Installation
