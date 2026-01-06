@@ -1,9 +1,5 @@
 # energizer
 
-The goal of energizer is to …
-
-## Installation
-
 R Interface to get EPC data using the OpenDataCommunities API
 
 ## Installation

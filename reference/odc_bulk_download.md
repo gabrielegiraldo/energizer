@@ -22,9 +22,9 @@ odc_bulk_download(
 
   `character` File name to be downloaded (extension included) Should be
   a valid file name from
-  [`odc_get_file()`](https://gggiraldo.github.io/enrgz/reference/odc_get_file.md)
+  [`odc_get_file()`](https://gabrielegiraldo.github.io/enrgz/reference/odc_get_file.md)
   or
-  [`odc_get_file_list()`](https://gggiraldo.github.io/enrgz/reference/odc_get_file_list.md).
+  [`odc_get_file_list()`](https://gabrielegiraldo.github.io/enrgz/reference/odc_get_file_list.md).
 
 - destination_path:
 
