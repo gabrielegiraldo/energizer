@@ -100,7 +100,7 @@ odc_get_file <- function(type = NULL, local_authority_code = NULL) {
   results <-
     results %>%
     purrr::flatten() %>%
-    stack() %>%
+    utils::stack() %>%
     tibble::tibble() %>%
     magrittr::set_names(c("size", "file_name"))
 
@@ -190,7 +190,7 @@ odc_bulk_download <- function(
 
   to_unzip <- paste0(type, ".csv")
 
-  files_in_zip <- unzip(temp_zip_path, list = TRUE)$Name
+  files_in_zip <- utils::unzip(temp_zip_path, list = TRUE)$Name
 
   if (!(to_unzip %in% files_in_zip)) {
     cli::cli_abort(c(
@@ -199,7 +199,7 @@ odc_bulk_download <- function(
     ))
   }
 
-  unzip(temp_zip_path, to_unzip, exdir = temp_dir)
+  utils::unzip(temp_zip_path, to_unzip, exdir = temp_dir)
 
   dat <-
     rio::import(file.path(temp_dir, to_unzip), setclass = "tibble") %>%

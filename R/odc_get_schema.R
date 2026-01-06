@@ -118,7 +118,7 @@ odc_get_schema <- function(
   cli::cli_process_start("Start parsing the schema to tabular format")
 
   to_unzip <- "schema.json"
-  files_in_zip <- unzip(zip_path, list = TRUE)$Name
+  files_in_zip <- utils::unzip(zip_path, list = TRUE)$Name
 
   if (!(to_unzip %in% files_in_zip)) {
     cli::cli_abort(c(
