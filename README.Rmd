@@ -28,13 +28,13 @@ You can install the development version of energizer from [GitHub](https://githu
 
 ```{r, eval = FALSE}
 # install.packages("pak")
-pak::pak("gggiraldo/energizer")
+pak::pak("gabrielegiraldo/energizer")
 ```
 
 or with: 
 
 ```{r, eval = FALSE}
-remotes::install_github("gggiraldo/energizer")
+remotes::install_github("gabrielegiraldo/energizer")
 ```
 
 ## Getting the API key

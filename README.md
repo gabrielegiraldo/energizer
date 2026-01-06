@@ -19,13 +19,13 @@ You can install the development version of energizer from
 
 ``` r
 # install.packages("pak")
-pak::pak("gggiraldo/energizer")
+pak::pak("gabrielegiraldo/energizer")
 ```
 
 or with:
 
 ``` r
-remotes::install_github("gggiraldo/energizer")
+remotes::install_github("gabrielegiraldo/energizer")
 ```
 
 ## Getting the API key
