@@ -1,0 +1,10 @@
+url: https://gggiraldo.github.io/enrgz
+
+authors:
+  gabrielegiraldo:
+    name: Gabriele Giraldo
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [github]
