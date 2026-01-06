@@ -1,10 +1,4 @@
-url: https://gggiraldo.github.io/enrgz
+url: https://gggiraldo.github.io/enrgz/
+template:
+  bootstrap: 5
 
-authors:
-  gabrielegiraldo:
-    name: Gabriele Giraldo
-
-navbar:
-  structure:
-    left: [intro, reference, articles, news]
-    right: [github]

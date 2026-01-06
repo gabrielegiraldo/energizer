@@ -9,7 +9,7 @@ Description: An R client for the UK's Open Data Communities API, providing
     buildings. Includes functions for searching, retrieving certificates and
     recommendations, and downloading bulk data files.
 License: MIT + file LICENSE
-URL: https://github.com/gggiraldo/energizer
+URL: https://github.com/gggiraldo/energizer, https://gggiraldo.github.io/enrgz/
 BugReports: https://github.com/gggiraldo/energizer/issues
 Depends: 
   R (>= 4.1)

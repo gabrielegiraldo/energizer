@@ -39,7 +39,7 @@ odc_get_file_list <- function() {
   results <-
     results %>%
     purrr::flatten() %>%
-    stack() %>%
+    utils::stack() %>%
     tibble::tibble() %>%
     magrittr::set_names(c("size", "file_name"))
 
