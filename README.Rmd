@@ -1,0 +1,185 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# energizer
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/gggiraldo/enrgz/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/gggiraldo/enrgz/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+The goal of energizer is to ...
+
+## Installation
+
+R Interface to get EPC data using the OpenDataCommunities API
+
+## Installation
+
+You can install the development version of energizer from [GitHub](https://github.com/) with:
+
+```{r, eval = FALSE}
+# install.packages("pak")
+pak::pak("gggiraldo/energizer")
+```
+
+or with: 
+
+```{r, eval = FALSE}
+remotes::install_github("gggiraldo/energizer")
+```
+
+## Getting the API key
+
+To get the API key, visit the [opc.opendatacommunities.org](https://epc.opendatacommunities.org/#register) website.
+
+A confirmation containing the API key will be sent to the e-mail address provided during registration.
+
+## 🪪 API Credentials Setup
+
+First, to start using `energizer` you need to set your API key with: 
+
+```{r, eval = FALSE}
+energizer::odc_set_key(
+  odc_user = "username", 
+  odc_key = "api-key"
+)
+```
+
+where `odc_user` is the address provided during the registration process, and `odc_key` is the one included in the confirmation e-mail.
+
+## 🔍 General Search
+
+The `search_domestic` function allows to search for certificates using various filters:
+
+```{r, include = FALSE, echo = FALSE}
+Sys.unsetenv("ODC_API_KEY") 
+energizer::odc_set_key(
+  Sys.getenv("ODC_USERNAME"),
+  Sys.getenv("ODC_PW") 
+)
+```
+
+```{r, message = FALSE, warning = FALSE}
+energizer::odc_search_data(
+  address = "liverpool road",
+  type = "domestic"
+)
+```
+
+By default, the function returns 25 records matching the filtering criteria. This behavior can be changed using the `max_records` parameter: 
+
+```{r, , message = FALSE, warning = FALSE}
+london_search_50 <- 
+  energizer::odc_search_data(
+    address = "liverpool road",
+    type = "domestic",
+    max_records = 50
+  )
+
+dim(london_search_50)
+```
+
+## 🔑 `lmk_key`-based Search 
+
+Certitificates can also be retrieved using the `lmk_key` field attribute, representing the "*Individual lodgement identifier*", which is unique and "*[...]can be used to identify a certificate*".
+
+```{r, include = FALSE, echo = FALSE}
+domestic_lmk_key <- "00031a8942cc0091d033fbe4ba1c535195e298a85f087906136fcd68fd35e1d7"
+non_domestic_lmk_key <- "003065c69db27a109e45effc2af41d8b79de805e8963cf74edc73f1f879410ab"
+display_lmk_key =  "0258793e614bca99c3c38e51395e1959e610bfc48b2e158e8fa846e6cd68ffb7"
+```
+
+```{r, message = FALSE, warning = FALSE}
+energizer::odc_get_data(
+  domestic_lmk_key, 
+  type = "domestic",
+  endpoint = "certificate"
+)
+```
+
+In the same way, recommendations can also be searched: 
+
+```{r, message = FALSE, warning = FALSE}
+energizer::odc_get_data(
+  domestic_lmk_key,
+  type = "domestic",
+  endpoint = "recommendation"
+)
+```
+
+Notice that if no recommendations are found, an error message is returned.
+
+## 📃 Paginated Search
+
+By default, only the first page of results is returned. Searching with pagination can be done by setting  `paginate = "all"`: 
+
+```{r, message = FALSE, warning = FALSE}
+energizer::odc_search_data(
+    address = "liverpool road",
+    type = "domestic",
+    paginate = "all", 
+    size = 5000
+)
+```
+
+Manual control over the pagination can be achived with:
+
+```{r, message = FALSE, warning = FALSE}
+energizer::odc_search_data(
+    address = "liverpool road",
+    type = "domestic",
+    paginate = "manual", 
+    size = 5000
+)
+```
+
+In addition to the usual output, this also returns the `X-Next-Search-After` response header, which can be passed to the subsequent search via the `search_after` input argument.
+
+## ⬇️ Bulk Download
+
+`energizer` wraps the bulk download functionality provided by the API: 
+
+```{r, eval = FALSE}
+energizer::odc_bulk_download(
+  file_name = "non-domestic-E08000025-Birmingham.zip",
+  destination_path = here::here(),
+  type = "certificate"
+)
+```
+
+To save the `.zip` file together with the `.csv` file, set `keep_zip = TRUE`:
+
+```{r, eval = FALSE}
+energizer::odc_bulk_download(
+  file_name = "non-domestic-E08000025-Birmingham.zip",
+  destination_path = here::here(),
+  type = "certificate",
+  keep_zip = TRUE
+)
+```
+
+## 🔎 Search Features
+
+* Flexible filtering: `address`, `postcode`, `local_authority`, `dates`, `property_type`, etc.
+
+* Smart pagination: three modes (`"none"`, `"all"`, `"manual"`)
+
+* Result control: `max_records` and `max_pages` parameters
+
+* Automatic type conversion: Use `local_authority` instead of `local-authority`
+
+## ⚠️ Disclaimer
+
+*This package is not affiliated with or endorsed by the UK Department for Levelling Up, Housing and Communities or the Open Data Communities service.*
