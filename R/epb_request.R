@@ -59,6 +59,9 @@ epb_error_message <- function(response) {
   detail <- NULL
   if (is.list(body)) {
     detail <- body$message %||% body$error %||% body$detail
+    if (is.null(detail) && is.list(body$data)) {
+      detail <- body$data$message %||% body$data$error %||% body$data$detail
+    }
   }
 
   if (status == 429L) {
@@ -84,16 +87,18 @@ epb_perform <- function(request, path = NULL) {
       cli::cli_process_done()
       response
     },
-    httr2_http = function(error) {
-      cli::cli_process_failed()
-      cli::cli_abort(epb_error_message(error$response), parent = error)
-    },
     error = function(error) {
       cli::cli_process_failed()
-      cli::cli_abort(
-        "Energy Performance API request failed: {conditionMessage(error)}",
-        parent = error
-      )
+      response <- error$resp %||% error$response
+      message <- if (
+        inherits(error, "httr2_http") &&
+          inherits(response, "httr2_response")
+      ) {
+        epb_error_message(response)
+      } else {
+        paste0("Energy Performance API request failed: ", conditionMessage(error))
+      }
+      cli::cli_abort(message, parent = error)
     }
   )
 }
@@ -126,6 +131,12 @@ epb_data_to_tibble <- function(data) {
   if (!all(vapply(records, is.list, logical(1)))) {
     return(tibble::tibble(value = unlist(records, use.names = FALSE)))
   }
+
+  records <- lapply(records, function(record) {
+    empty_fields <- vapply(record, function(value) length(value) == 0L, logical(1))
+    record[empty_fields] <- rep(list(NA), sum(empty_fields))
+    record
+  })
 
   result <- data.table::rbindlist(records, fill = TRUE)
   result <- tibble::as_tibble(result)

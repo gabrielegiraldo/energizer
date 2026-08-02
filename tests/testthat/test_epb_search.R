@@ -104,6 +104,41 @@ test_that("max_records enables pagination and trims result", {
   expect_equal(nrow(result), 3L)
 })
 
+test_that("search returns empty result when API reports no matches", {
+  httr2::local_mocked_responses(function(req) {
+    httr2::response_json(
+      status_code = 404L,
+      body = list(data = list(
+        error = "No certificates could be found for that query"
+      ))
+    )
+  })
+  withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
+
+  result <- quietly(epb_search_domestic(postcode = "LS1 4AP"))
+
+  expect_s3_class(result, "tbl_df")
+  expect_equal(nrow(result), 0L)
+  expect_equal(attr(result, "pagination")$retrievedPages, 1L)
+  expect_equal(attr(result, "pagination")$retrievedRecords, 0L)
+})
+
+test_that("search accepts successful response through HTTP layer", {
+  httr2::local_mocked_responses(function(req) {
+    search_response(
+      list(list(certificateNumber = "1111", postcode = "LS1 4AP")),
+      current_page = 1L
+    )
+  })
+  withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
+
+  result <- quietly(epb_search_non_domestic(postcode = "LS1 4AP"))
+
+  expect_equal(nrow(result), 1L)
+  expect_equal(result$postcode, "LS1 4AP")
+  expect_equal(attr(result, "pagination")$retrievedRecords, 1L)
+})
+
 test_that("search validates filters and pagination", {
   expect_error(epb_search_domestic(), "named search filter")
   expect_error(epb_search_domestic(postcode = "LS1", page_size = 0), "page_size")

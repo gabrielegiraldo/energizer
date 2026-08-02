@@ -63,3 +63,54 @@ test_that("epb response parser handles records and pagination", {
   expect_named(parsed$data, c("certificate_number", "current_energy_efficiency_band"))
   expect_equal(parsed$pagination$nextPage, 2L)
 })
+
+test_that("epb response parser handles null record fields without warnings", {
+  response <- httr2::response_json(body = list(
+    data = list(
+      list(certificateNumber = "1111", addressLine3 = NULL),
+      list(certificateNumber = "2222", addressLine3 = "Rear building")
+    )
+  ))
+
+  expect_no_warning(parsed <- epb_parse_response(response))
+  expect_equal(parsed$data$address_line3, c(NA, "Rear building"))
+})
+
+test_that("epb_perform reports nested API HTTP errors once", {
+  httr2::local_mocked_responses(function(req) {
+    httr2::response_json(
+      status_code = 400L,
+      body = list(data = list(
+        error = "The search query was invalid - please provide a valid postcode"
+      ))
+    )
+  })
+
+  request <- httr2::request("https://example.test/api/domestic/search")
+
+  error <- expect_error(
+    quietly(epb_perform(request)),
+    "400 Bad Request.*please provide a valid postcode"
+  )
+  expect_s3_class(error$parent, "httr2_http_400")
+  expect_equal(
+    lengths(regmatches(
+      conditionMessage(error),
+      gregexpr("Energy Performance API request failed", conditionMessage(error), fixed = TRUE)
+    )),
+    1L
+  )
+})
+
+test_that("epb_perform reports rate limiting guidance", {
+  httr2::local_mocked_responses(function(req) {
+    httr2::response_json(status_code = 429L)
+  })
+
+  request <- httr2::request("https://example.test/api/domestic/search")
+
+  expect_error(
+    quietly(epb_perform(request)),
+    "429 Too Many Requests.*Stop requests briefly"
+  )
+})
