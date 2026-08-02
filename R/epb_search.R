@@ -170,7 +170,16 @@ epb_paginate_search <- function(
       filters,
       list(current_page = current_page, page_size = request_size)
     )
-    response <- epb_perform(epb_request(path, query = query))
+    request <- epb_request(path, query = query) |>
+      httr2::req_error(
+        is_error = function(response) {
+          httr2::resp_is_error(response) && httr2::resp_status(response) != 404L
+        }
+      )
+    response <- epb_perform(request)
+    if (httr2::resp_status(response) == 404L) {
+      break
+    }
     parsed <- epb_parse_response(response)
     pages[[page_count]] <- parsed$data
     pagination <- parsed$pagination
