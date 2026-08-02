@@ -39,6 +39,9 @@
 <li>Added page-based pagination using API <code>pagination</code> response object.</li>
 <li>Marked legacy <code>odc_*</code> interface defunct because Open Data Communities API and Basic Authentication workflow are obsolete.</li>
 <li>Removed obsolete Base64 credential encoding, LMK-key retrieval, file listing and hard-coded schema archive handling.</li>
+<li>Fixed HTTP error handling so API status and response details are reported instead of a secondary <code>NULL</code> response error.</li>
+<li>Search functions now return an empty tibble when a valid query has no matching certificates, represented by HTTP 404 in the API.</li>
+<li>Normalized JSON <code>null</code> record fields before row binding to avoid repetitive <code><a href="https://rdrr.io/pkg/data.table/man/rbindlist.html" class="external-link">data.table::rbindlist()</a></code> missing-value warnings.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.10.0" id="energizer-0100">energizer 0.10.0<a class="anchor" aria-label="anchor" href="#energizer-0100"></a></h2>

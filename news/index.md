@@ -14,6 +14,14 @@
   API and Basic Authentication workflow are obsolete.
 - Removed obsolete Base64 credential encoding, LMK-key retrieval, file
   listing and hard-coded schema archive handling.
+- Fixed HTTP error handling so API status and response details are
+  reported instead of a secondary `NULL` response error.
+- Search functions now return an empty tibble when a valid query has no
+  matching certificates, represented by HTTP 404 in the API.
+- Normalized JSON `null` record fields before row binding to avoid
+  repetitive
+  [`data.table::rbindlist()`](https://rdrr.io/pkg/data.table/man/rbindlist.html)
+  missing-value warnings.
 
 ## energizer 0.10.0
 
