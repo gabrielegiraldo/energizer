@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
 # energizer <a href="https://gabrielegiraldo.github.io/enrgz/"><img src="man/figures/logo.png" align="right" height="139" alt="energizer website" /></a>
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/gggiraldo/enrgz/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/gggiraldo/enrgz/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/gggiraldo/enrgz/graph/badge.svg)](https://app.codecov.io/gh/gggiraldo/enrgz)
+[![R-CMD-check](https://github.com/gabrielegiraldo/energizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/gabrielegiraldo/energizer/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/gabrielegiraldo/energizer/graph/badge.svg)](https://app.codecov.io/gh/gabrielegiraldo/energizer)
 <!-- badges: end -->
 
 R client for UK government's [Get energy performance of buildings data API](https://get-energy-performance-data.communities.gov.uk/api-technical-documentation). It retrieves EPC and DEC records, searches certificates, tracks changes and downloads monthly full-load datasets.
