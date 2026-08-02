@@ -1,18 +1,20 @@
-# energizer: A Client For Accessing The Open Data Communities EPC API
+# energizer: Client for the Energy Performance of Buildings Data API
 
-An R client for the UK's Open Data Communities API, providing
-programmatic access to Energy Performance Certificate (EPC) and Display
-Energy Certificate (DEC) data for domestic, non-domestic, and public
-buildings. Includes functions for searching, retrieving certificates and
-recommendations, and downloading bulk data files.
+An R client for the UK government's Get energy performance of buildings
+data API. Provides bearer-authenticated access to Energy Performance
+Certificate (EPC) and Display Energy Certificate (DEC) data, including
+certificate retrieval, domestic, non-domestic and display searches,
+change events, code tables and monthly full-load downloads.
 
 ## See also
 
 Useful links:
 
-- <https://github.com/gggiraldo/energizer>
+- <https://github.com/gabrielegiraldo/energizer>
 
-- Report bugs at <https://github.com/gggiraldo/energizer/issues>
+- <https://gggiraldo.github.io/enrgz/>
+
+- Report bugs at <https://github.com/gabrielegiraldo/energizer/issues>
 
 ## Author
 

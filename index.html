@@ -5,19 +5,19 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>A Client For Accessing The Open Data Communities EPC API • energizer</title>
+<title>Client for the Energy Performance of Buildings Data API • energizer</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A Client For Accessing The Open Data Communities EPC API">
-<meta name="description" content="An R client for the UK's Open Data Communities API, providing programmatic access to Energy Performance Certificate (EPC) and Display Energy Certificate (DEC) data for domestic, non-domestic, and public buildings. Includes functions for searching, retrieving certificates and recommendations, and downloading bulk data files.">
-<meta property="og:description" content="An R client for the UK's Open Data Communities API, providing programmatic access to Energy Performance Certificate (EPC) and Display Energy Certificate (DEC) data for domestic, non-domestic, and public buildings. Includes functions for searching, retrieving certificates and recommendations, and downloading bulk data files.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Client for the Energy Performance of Buildings Data API">
+<meta name="description" content="An R client for the UK government's Get energy performance of buildings data API. Provides bearer-authenticated access to Energy Performance Certificate (EPC) and Display Energy Certificate (DEC) data, including certificate retrieval, domestic, non-domestic and display searches, change events, code tables and monthly full-load downloads.">
+<meta property="og:description" content="An R client for the UK government's Get energy performance of buildings data API. Provides bearer-authenticated access to Energy Performance Certificate (EPC) and Display Energy Certificate (DEC) data, including certificate retrieval, domestic, non-domestic and display searches, change events, code tables and monthly full-load downloads.">
 <meta property="og:image" content="https://gabrielegiraldo.github.io/enrgz/logo.png">
 </head>
 <body>
@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">energizer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,209 +60,143 @@
 </div>
 <!-- badges: start -->
 
-<p>R Interface to get EPC data using the OpenDataCommunities API</p>
+<p>R client for UK government’s <a href="https://get-energy-performance-data.communities.gov.uk/api-technical-documentation" class="external-link">Get energy performance of buildings data API</a>. It retrieves EPC and DEC records, searches certificates, tracks changes and downloads monthly full-load datasets.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of energizer from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Install development version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"gabrielegiraldo/energizer"</span><span class="op">)</span></span></code></pre></div>
-<p>or with:</p>
+</div>
+<div class="section level2">
+<h2 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+</h2>
+<p>Sign in to service, copy bearer token from <strong>My account</strong>, then set it for current R session:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"gabrielegiraldo/energizer"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_set_token.html">epb_set_token</a></span><span class="op">(</span><span class="st">"your-bearer-token"</span><span class="op">)</span></span></code></pre></div>
+<p>For non-interactive use, set <code>EPB_BEARER_TOKEN</code> before starting R. Do not commit token to source control.</p>
 </div>
 <div class="section level2">
-<h2 id="getting-the-api-key">Getting the API key<a class="anchor" aria-label="anchor" href="#getting-the-api-key"></a>
+<h2 id="fetch-certificate">Fetch certificate<a class="anchor" aria-label="anchor" href="#fetch-certificate"></a>
 </h2>
-<p>To get the API key, visit the <a href="https://epc.opendatacommunities.org/#register" class="external-link">opc.opendatacommunities.org</a> website.</p>
-<p>A confirmation containing the API key will be sent to the e-mail address provided during registration.</p>
-</div>
-<div class="section level2">
-<h2 id="id_-api-credentials-setup">🪪 API Credentials Setup<a class="anchor" aria-label="anchor" href="#id_-api-credentials-setup"></a>
-</h2>
-<p>First, to start using <code>energizer</code> you need to set your API key with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_set_key.html">odc_set_key</a></span><span class="op">(</span></span>
-<span>  odc_user <span class="op">=</span> <span class="st">"username"</span>, </span>
-<span>  odc_key <span class="op">=</span> <span class="st">"api-key"</span></span>
+<code class="sourceCode R"><span><span class="va">certificate</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_certificate.html">epb_get_certificate</a></span><span class="op">(</span></span>
+<span>  <span class="st">"1111-2222-3333-4444-5555"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>where <code>odc_user</code> is the address provided during the registration process, and <code>odc_key</code> is the one included in the confirmation e-mail.</p>
 </div>
 <div class="section level2">
-<h2 id="id_-general-search">🔍 General Search<a class="anchor" aria-label="anchor" href="#id_-general-search"></a>
+<h2 id="search-certificates">Search certificates<a class="anchor" aria-label="anchor" href="#search-certificates"></a>
 </h2>
-<p>The <code>search_domestic</code> function allows to search for certificates using various filters:</p>
+<p>Search domestic, non-domestic or display certificates with API filters:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_search_data.html">odc_search_data</a></span><span class="op">(</span></span>
-<span>  address <span class="op">=</span> <span class="st">"liverpool road"</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"domestic"</span></span>
+<code class="sourceCode R"><span><span class="va">domestic</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_domestic.html">epb_search_domestic</a></span><span class="op">(</span></span>
+<span>  postcode <span class="op">=</span> <span class="st">"LS1 4AP"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 25 × 93</span></span>
-<span><span class="co">#&gt;    low_energy_fixed_light_count address                 uprn_source floor_height</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;                        &lt;chr&gt;                   &lt;chr&gt;       &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt;  1 ""                           329 Old Liverpool Road  Energy Ass… 2.7         </span></span>
-<span><span class="co">#&gt;  2 ""                           93 Liverpool Road       Energy Ass… 2.64        </span></span>
-<span><span class="co">#&gt;  3 ""                           44 Liverpool Road       Energy Ass… 2.4         </span></span>
-<span><span class="co">#&gt;  4 ""                           2a Crown Buildings, Li… Energy Ass… 2.42        </span></span>
-<span><span class="co">#&gt;  5 ""                           22 Liverpool Road       Energy Ass… 2.6         </span></span>
-<span><span class="co">#&gt;  6 ""                           5 Liverpool Road        Energy Ass… 2.16        </span></span>
-<span><span class="co">#&gt;  7 ""                           60 Liverpool Road, Aug… Energy Ass… 2.54        </span></span>
-<span><span class="co">#&gt;  8 ""                           546 Liverpool Road, Ha… Energy Ass… 2.46        </span></span>
-<span><span class="co">#&gt;  9 ""                           104 Liverpool Road, Gr… Energy Ass… 2.6         </span></span>
-<span><span class="co">#&gt; 10 ""                           Flat, 575 Liverpool Ro… Energy Ass… 2.52        </span></span>
-<span><span class="co">#&gt; # ℹ 15 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 89 more variables: heating_cost_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   unheated_corridor_length &lt;chr&gt;, hot_water_cost_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   construction_age_band &lt;chr&gt;, potential_energy_rating &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   mainheat_energy_eff &lt;chr&gt;, windows_env_eff &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   lighting_energy_eff &lt;chr&gt;, environment_impact_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   glazed_type &lt;chr&gt;, heating_cost_current &lt;chr&gt;, address3 &lt;chr&gt;, …</span></span></code></pre></div>
-<p>By default, the function returns 25 records matching the filtering criteria. This behavior can be changed using the <code>max_records</code> parameter:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">london_search_50</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_search_data.html">odc_search_data</a></span><span class="op">(</span></span>
-<span>    address <span class="op">=</span> <span class="st">"liverpool road"</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"domestic"</span>,</span>
-<span>    max_records <span class="op">=</span> <span class="fl">50</span></span>
-<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">london_search_50</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 50 93</span></span></code></pre></div>
+<span><span class="va">non_domestic</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_non_domestic.html">epb_search_non_domestic</a></span><span class="op">(</span></span>
+<span>  council <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Manchester"</span>, <span class="st">"Salford"</span><span class="op">)</span>,</span>
+<span>  efficiency_rating <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"G"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">display</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_display.html">epb_search_display</a></span><span class="op">(</span></span>
+<span>  date_start <span class="op">=</span> <span class="st">"2025-01-01"</span>,</span>
+<span>  date_end <span class="op">=</span> <span class="st">"2025-01-31"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Retrieve all pages or cap result size:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_domestic.html">epb_search_domestic</a></span><span class="op">(</span></span>
+<span>  address <span class="op">=</span> <span class="st">"Liverpool Road"</span>,</span>
+<span>  paginate <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  max_records <span class="op">=</span> <span class="fl">10000</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">results</span>, <span class="st">"pagination"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="id_-lmk_key-based-search">🔑 <code>lmk_key</code>-based Search<a class="anchor" aria-label="anchor" href="#id_-lmk_key-based-search"></a>
+<h2 id="changed-certificates">Changed certificates<a class="anchor" aria-label="anchor" href="#changed-certificates"></a>
 </h2>
-<p>Certitificates can also be retrieved using the <code>lmk_key</code> field attribute, representing the “<em>Individual lodgement identifier</em>”, which is unique and “<em>[…]can be used to identify a certificate</em>”.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_get_data.html">odc_get_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">domestic_lmk_key</span>, </span>
-<span>  type <span class="op">=</span> <span class="st">"domestic"</span>,</span>
-<span>  endpoint <span class="op">=</span> <span class="st">"certificate"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 93</span></span>
-<span><span class="co">#&gt;   low_energy_fixed_lig…¹ address uprn_source floor_height heating_cost_potential</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;                  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;                 </span></span>
-<span><span class="co">#&gt; 1 ""                     39 Bee… Energy Ass… 2.3          887                   </span></span>
-<span><span class="co">#&gt; # ℹ abbreviated name: ¹​low_energy_fixed_light_count</span></span>
-<span><span class="co">#&gt; # ℹ 88 more variables: unheated_corridor_length &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   hot_water_cost_potential &lt;chr&gt;, construction_age_band &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   potential_energy_rating &lt;chr&gt;, mainheat_energy_eff &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   windows_env_eff &lt;chr&gt;, lighting_energy_eff &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   environment_impact_potential &lt;chr&gt;, glazed_type &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   heating_cost_current &lt;chr&gt;, address3 &lt;chr&gt;, …</span></span></code></pre></div>
-<p>In the same way, recommendations can also be searched:</p>
+<code class="sourceCode R"><span><span class="va">changes</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_deltas.html">epb_get_deltas</a></span><span class="op">(</span></span>
+<span>  <span class="st">"2025-01-01"</span>,</span>
+<span>  <span class="st">"2025-01-31"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="full-load-downloads">Full-load downloads<a class="anchor" aria-label="anchor" href="#full-load-downloads"></a>
+</h2>
+<p>Monthly full-load datasets can be large. Download ZIP first; extraction is optional:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_get_data.html">odc_get_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">domestic_lmk_key</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"domestic"</span>,</span>
-<span>  endpoint <span class="op">=</span> <span class="st">"recommendation"</span></span>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_domestic.html">epb_download_domestic</a></span><span class="op">(</span></span>
+<span>  format <span class="op">=</span> <span class="st">"csv"</span>,</span>
+<span>  destination_path <span class="op">=</span> <span class="st">"data"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 7</span></span>
-<span><span class="co">#&gt;   lmk_key         improvement_item improvement_summary_…¹ improvement_descr_text</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;                  &lt;chr&gt;                 </span></span>
-<span><span class="co">#&gt; 1 00031a8942cc00… 1                Floor insulation (sol… Floor insulation (sol…</span></span>
-<span><span class="co">#&gt; 2 00031a8942cc00… 2                Heating controls (the… Heating controls (TRV…</span></span>
-<span><span class="co">#&gt; 3 00031a8942cc00… 3                Solar photovoltaic pa… Solar photovoltaic pa…</span></span>
-<span><span class="co">#&gt; # ℹ abbreviated name: ¹​improvement_summary_text</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: improvement_id &lt;chr&gt;, improvement_id_text &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   indicative_cost &lt;chr&gt;</span></span></code></pre></div>
-<p>Notice that if no recommendations are found, an error message is returned.</p>
-</div>
-<div class="section level2">
-<h2 id="id_-paginated-search">📃 Paginated Search<a class="anchor" aria-label="anchor" href="#id_-paginated-search"></a>
-</h2>
-<p>By default, only the first page of results is returned. Searching with pagination can be done by setting <code>paginate = "all"</code>:</p>
+<span></span>
+<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_info.html">epb_download_info</a></span><span class="op">(</span><span class="st">"domestic"</span>, <span class="st">"csv"</span><span class="op">)</span></span></code></pre></div>
+<p>Recommendation datasets are JSON-only:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_search_data.html">odc_search_data</a></span><span class="op">(</span></span>
-<span>    address <span class="op">=</span> <span class="st">"liverpool road"</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"domestic"</span>,</span>
-<span>    paginate <span class="op">=</span> <span class="st">"all"</span>, </span>
-<span>    size <span class="op">=</span> <span class="fl">5000</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 17,768 × 93</span></span>
-<span><span class="co">#&gt;    low_energy_fixed_light_count address                 uprn_source floor_height</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;                        &lt;chr&gt;                   &lt;chr&gt;       &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt;  1 ""                           329 Old Liverpool Road  Energy Ass… 2.7         </span></span>
-<span><span class="co">#&gt;  2 ""                           93 Liverpool Road       Energy Ass… 2.64        </span></span>
-<span><span class="co">#&gt;  3 ""                           44 Liverpool Road       Energy Ass… 2.4         </span></span>
-<span><span class="co">#&gt;  4 ""                           2a Crown Buildings, Li… Energy Ass… 2.42        </span></span>
-<span><span class="co">#&gt;  5 ""                           22 Liverpool Road       Energy Ass… 2.6         </span></span>
-<span><span class="co">#&gt;  6 ""                           5 Liverpool Road        Energy Ass… 2.16        </span></span>
-<span><span class="co">#&gt;  7 ""                           60 Liverpool Road, Aug… Energy Ass… 2.54        </span></span>
-<span><span class="co">#&gt;  8 ""                           546 Liverpool Road, Ha… Energy Ass… 2.46        </span></span>
-<span><span class="co">#&gt;  9 ""                           104 Liverpool Road, Gr… Energy Ass… 2.6         </span></span>
-<span><span class="co">#&gt; 10 ""                           Flat, 575 Liverpool Ro… Energy Ass… 2.52        </span></span>
-<span><span class="co">#&gt; # ℹ 17,758 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 89 more variables: heating_cost_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   unheated_corridor_length &lt;chr&gt;, hot_water_cost_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   construction_age_band &lt;chr&gt;, potential_energy_rating &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   mainheat_energy_eff &lt;chr&gt;, windows_env_eff &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   lighting_energy_eff &lt;chr&gt;, environment_impact_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   glazed_type &lt;chr&gt;, heating_cost_current &lt;chr&gt;, address3 &lt;chr&gt;, …</span></span></code></pre></div>
-<p>Manual control over the pagination can be achived with:</p>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_non_domestic_recommendations_json.html">epb_download_non_domestic_recommendations_json</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_display_recommendations_json.html">epb_download_display_recommendations_json</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="epc-codes">EPC codes<a class="anchor" aria-label="anchor" href="#epc-codes"></a>
+</h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_search_data.html">odc_search_data</a></span><span class="op">(</span></span>
-<span>    address <span class="op">=</span> <span class="st">"liverpool road"</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"domestic"</span>,</span>
-<span>    paginate <span class="op">=</span> <span class="st">"manual"</span>, </span>
-<span>    size <span class="op">=</span> <span class="fl">5000</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5,000 × 93</span></span>
-<span><span class="co">#&gt;    low_energy_fixed_light_count address                 uprn_source floor_height</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;                        &lt;chr&gt;                   &lt;chr&gt;       &lt;chr&gt;       </span></span>
-<span><span class="co">#&gt;  1 ""                           329 Old Liverpool Road  Energy Ass… 2.7         </span></span>
-<span><span class="co">#&gt;  2 ""                           93 Liverpool Road       Energy Ass… 2.64        </span></span>
-<span><span class="co">#&gt;  3 ""                           44 Liverpool Road       Energy Ass… 2.4         </span></span>
-<span><span class="co">#&gt;  4 ""                           2a Crown Buildings, Li… Energy Ass… 2.42        </span></span>
-<span><span class="co">#&gt;  5 ""                           22 Liverpool Road       Energy Ass… 2.6         </span></span>
-<span><span class="co">#&gt;  6 ""                           5 Liverpool Road        Energy Ass… 2.16        </span></span>
-<span><span class="co">#&gt;  7 ""                           60 Liverpool Road, Aug… Energy Ass… 2.54        </span></span>
-<span><span class="co">#&gt;  8 ""                           546 Liverpool Road, Ha… Energy Ass… 2.46        </span></span>
-<span><span class="co">#&gt;  9 ""                           104 Liverpool Road, Gr… Energy Ass… 2.6         </span></span>
-<span><span class="co">#&gt; 10 ""                           Flat, 575 Liverpool Ro… Energy Ass… 2.52        </span></span>
-<span><span class="co">#&gt; # ℹ 4,990 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 89 more variables: heating_cost_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   unheated_corridor_length &lt;chr&gt;, hot_water_cost_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   construction_age_band &lt;chr&gt;, potential_energy_rating &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   mainheat_energy_eff &lt;chr&gt;, windows_env_eff &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   lighting_energy_eff &lt;chr&gt;, environment_impact_potential &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   glazed_type &lt;chr&gt;, heating_cost_current &lt;chr&gt;, address3 &lt;chr&gt;, …</span></span></code></pre></div>
-<p>In addition to the usual output, this also returns the <code>X-Next-Search-After</code> response header, which can be passed to the subsequent search via the <code>search_after</code> input argument.</p>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_codes.html">epb_get_codes</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_code_info.html">epb_get_code_info</a></span><span class="op">(</span><span class="st">"built_form"</span>, key <span class="op">=</span> <span class="st">"NR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="id_️-bulk-download">⬇️ Bulk Download<a class="anchor" aria-label="anchor" href="#id_%EF%B8%8F-bulk-download"></a>
+<h2 id="migration-from-0100">Migration from 0.10.0<a class="anchor" aria-label="anchor" href="#migration-from-0100"></a>
 </h2>
-<p><code>energizer</code> wraps the bulk download functionality provided by the API:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_bulk_download.html">odc_bulk_download</a></span><span class="op">(</span></span>
-<span>  file_name <span class="op">=</span> <span class="st">"non-domestic-E08000025-Birmingham.zip"</span>,</span>
-<span>  destination_path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu">here</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"certificate"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>To save the <code>.zip</code> file together with the <code>.csv</code> file, set <code>keep_zip = TRUE</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/odc_bulk_download.html">odc_bulk_download</a></span><span class="op">(</span></span>
-<span>  file_name <span class="op">=</span> <span class="st">"non-domestic-E08000025-Birmingham.zip"</span>,</span>
-<span>  destination_path <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu">here</span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"certificate"</span>,</span>
-<span>  keep_zip <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="34%">
+<col width="65%">
+</colgroup>
+<thead><tr>
+<th>Old function</th>
+<th>Replacement</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code><a href="reference/odc-defunct.html">odc_set_key()</a></code></td>
+<td><code><a href="reference/epb_set_token.html">epb_set_token()</a></code></td>
+</tr>
+<tr>
+<td><code><a href="reference/odc-defunct.html">odc_get_data()</a></code></td>
+<td><code><a href="reference/epb_get_certificate.html">epb_get_certificate()</a></code></td>
+</tr>
+<tr>
+<td><code><a href="reference/odc-defunct.html">odc_search_data()</a></code></td>
+<td>
+<code><a href="reference/epb_search_domestic.html">epb_search_domestic()</a></code>, <code><a href="reference/epb_search_non_domestic.html">epb_search_non_domestic()</a></code>, or <code><a href="reference/epb_search_display.html">epb_search_display()</a></code>
+</td>
+</tr>
+<tr>
+<td><code><a href="reference/odc-defunct.html">odc_bulk_download()</a></code></td>
+<td>
+<code><a href="reference/epb_download_full_load.html">epb_download_full_load()</a></code> or type-specific download functions</td>
+</tr>
+<tr>
+<td>
+<code><a href="reference/odc-defunct.html">odc_get_file()</a></code> / <code><a href="reference/odc-defunct.html">odc_get_file_list()</a></code>
+</td>
+<td><code><a href="reference/epb_download_info.html">epb_download_info()</a></code></td>
+</tr>
+<tr>
+<td><code><a href="reference/odc-defunct.html">odc_get_schema()</a></code></td>
+<td>
+<code><a href="reference/epb_get_codes.html">epb_get_codes()</a></code> / <code><a href="reference/epb_get_code_info.html">epb_get_code_info()</a></code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Old <code>odc_*</code> functions are defunct because old API authentication, LMK-key endpoints and local-authority file listings no longer exist.</p>
 </div>
 <div class="section level2">
-<h2 id="id_-search-features">🔎 Search Features<a class="anchor" aria-label="anchor" href="#id_-search-features"></a>
+<h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<ul>
-<li><p>Flexible filtering: <code>address</code>, <code>postcode</code>, <code>local_authority</code>, <code>dates</code>, <code>property_type</code>, etc.</p></li>
-<li><p>Smart pagination: three modes (<code>"none"</code>, <code>"all"</code>, <code>"manual"</code>)</p></li>
-<li><p>Result control: <code>max_records</code> and <code>max_pages</code> parameters</p></li>
-<li><p>Automatic type conversion: Use <code>local_authority</code> instead of <code>local-authority</code></p></li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="id_️-disclaimer">⚠️ Disclaimer<a class="anchor" aria-label="anchor" href="#id_%EF%B8%8F-disclaimer"></a>
-</h2>
-<p><em>This package is not affiliated with or endorsed by the UK Department for Levelling Up, Housing and Communities or the Open Data Communities service.</em></p>
+<p><em>This package is not affiliated with or endorsed by UK government.</em></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -313,7 +247,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
