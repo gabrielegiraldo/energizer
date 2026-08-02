@@ -4,15 +4,18 @@
 \name{energizer-package}
 \alias{energizer}
 \alias{energizer-package}
-\title{energizer: A Client For Accessing The Open Data Communities EPC API}
+\title{energizer: Client for the Energy Performance of Buildings Data API}
 \description{
-An R client for the UK's Open Data Communities API, providing programmatic access to Energy Performance Certificate (EPC) and Display Energy Certificate (DEC) data for domestic, non-domestic, and public buildings. Includes functions for searching, retrieving certificates and recommendations, and downloading bulk data files.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+An R client for the UK government's Get energy performance of buildings data API. Provides bearer-authenticated access to Energy Performance Certificate (EPC) and Display Energy Certificate (DEC) data, including certificate retrieval, domestic, non-domestic and display searches, change events, code tables and monthly full-load downloads.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/gggiraldo/energizer}
-  \item Report bugs at \url{https://github.com/gggiraldo/energizer/issues}
+  \item \url{https://github.com/gabrielegiraldo/energizer}
+  \item \url{https://gggiraldo.github.io/enrgz/}
+  \item Report bugs at \url{https://github.com/gabrielegiraldo/energizer/issues}
 }
 
 }

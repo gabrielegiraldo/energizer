@@ -1,4 +1,16 @@
-# energizer (development version)
+# energizer 1.0.0
+
+- Migrated to Get energy performance of buildings data API.
+- Added bearer-token authentication through `epb_set_token()` and
+  `EPB_BEARER_TOKEN`.
+- Added certificate retrieval, three certificate search functions, change
+  events, code tables, full-load downloads and download metadata under new
+  `epb_*` interface.
+- Added page-based pagination using API `pagination` response object.
+- Marked legacy `odc_*` interface defunct because Open Data Communities API and
+  Basic Authentication workflow are obsolete.
+- Removed obsolete Base64 credential encoding, LMK-key retrieval, file listing
+  and hard-coded schema archive handling.
 
 # energizer 0.10.0
 
