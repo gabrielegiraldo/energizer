@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# energizer <a href="https://gabrielegiraldo.github.io/enrgz/"><img src="man/figures/energizer-clean-api-sandstone-grid-transparent.png" align="right" height="139" alt="energizer hex sticker" /></a>
+# energizer <a href="https://gabrielegiraldo.github.io/enrgz/"><img src="man/figures/energizer-clean-api-sandstone-grid-transparent-exterior.png" align="right" height="139" alt="energizer hex sticker" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/gabrielegiraldo/energizer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/gabrielegiraldo/energizer/actions/workflows/R-CMD-check.yaml)
