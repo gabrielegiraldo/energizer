@@ -2,7 +2,7 @@
 #'
 #' Searches domestic EPCs using geographic or registration-date filters.
 #'
-#' @inheritParams epb_search_common
+#' @inheritParams search_common
 #' @param ... Search filters such as `postcode`, `uprn`, `address`, `council`,
 #'   `constituency`, `efficiency_rating`, `date_start`, and `date_end`.
 #'
@@ -12,14 +12,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' epb_search_domestic(postcode = "LS1 4AP")
-#' epb_search_domestic(
+#' search_domestic(postcode = "LS1 4AP")
+#' search_domestic(
 #'   council = c("Manchester", "Salford"),
 #'   paginate = "all",
 #'   max_records = 10000
 #' )
 #' }
-epb_search_domestic <- function(
+search_domestic <- function(
   ...,
   paginate = c("none", "all", "manual"),
   page_size = 5000L,
@@ -40,11 +40,11 @@ epb_search_domestic <- function(
 
 #' Search non-domestic energy certificates
 #'
-#' @inheritParams epb_search_domestic
+#' @inheritParams search_domestic
 #' @return A tibble with pagination metadata in `attr(result, "pagination")`.
 #' @export
-#' @rdname epb_search_non_domestic
-epb_search_non_domestic <- function(
+#' @rdname search_non_domestic
+search_non_domestic <- function(
   ...,
   paginate = c("none", "all", "manual"),
   page_size = 5000L,
@@ -65,11 +65,11 @@ epb_search_non_domestic <- function(
 
 #' Search display energy certificates
 #'
-#' @inheritParams epb_search_domestic
+#' @inheritParams search_domestic
 #' @return A tibble with pagination metadata in `attr(result, "pagination")`.
 #' @export
-#' @rdname epb_search_display
-epb_search_display <- function(
+#' @rdname search_display
+search_display <- function(
   ...,
   paginate = c("none", "all", "manual"),
   page_size = 5000L,
@@ -98,7 +98,7 @@ epb_search_display <- function(
 #'   switches pagination to `"all"`.
 #'
 #' @keywords internal
-#' @name epb_search_common
+#' @name search_common
 NULL
 
 epb_search <- function(

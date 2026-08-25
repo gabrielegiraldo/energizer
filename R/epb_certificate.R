@@ -9,9 +9,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' epb_get_certificate("1111-2222-3333-4444-5555")
+#' get_certificate("1111-2222-3333-4444-5555")
 #' }
-epb_get_certificate <- function(certificate_number) {
+get_certificate <- function(certificate_number) {
   certificate_number <- epb_normalize_certificate_number(certificate_number)
 
   request <- epb_request(

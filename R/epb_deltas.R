@@ -11,9 +11,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' epb_get_deltas("2025-01-01", "2025-01-31")
+#' get_deltas("2025-01-01", "2025-01-31")
 #' }
-epb_get_deltas <- function(date_start, date_end = date_start) {
+get_deltas <- function(date_start, date_end = date_start) {
   date_start <- epb_validate_date(date_start, "date_start")
   date_end <- epb_validate_date(date_end, "date_end")
 

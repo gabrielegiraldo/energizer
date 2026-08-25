@@ -23,9 +23,9 @@ test_that("search wrappers use correct endpoints", {
   )
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
 
-  epb_search_domestic(postcode = "LS1 4AP")
-  epb_search_non_domestic(postcode = "LS1 4AP")
-  epb_search_display(postcode = "LS1 4AP")
+  search_domestic(postcode = "LS1 4AP")
+  search_non_domestic(postcode = "LS1 4AP")
+  search_display(postcode = "LS1 4AP")
 
   expect_match(captured_urls[[1]], "/api/domestic/search")
   expect_match(captured_urls[[2]], "/api/non-domestic/search")
@@ -61,7 +61,7 @@ test_that("search expands array filters and paginates", {
   )
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
 
-  result <- epb_search_domestic(
+  result <- search_domestic(
     council = c("Manchester", "Salford"),
     efficiency_rating = c("F", "G"),
     paginate = "all",
@@ -98,7 +98,7 @@ test_that("max_records enables pagination and trims result", {
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
 
   expect_message(
-    result <- epb_search_domestic(postcode = "LS1", max_records = 3L, page_size = 2L),
+    result <- search_domestic(postcode = "LS1", max_records = 3L, page_size = 2L),
     "max_records"
   )
   expect_equal(nrow(result), 3L)
@@ -115,7 +115,7 @@ test_that("search returns empty result when API reports no matches", {
   })
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
 
-  result <- quietly(epb_search_domestic(postcode = "LS1 4AP"))
+  result <- quietly(search_domestic(postcode = "LS1 4AP"))
 
   expect_s3_class(result, "tbl_df")
   expect_equal(nrow(result), 0L)
@@ -132,7 +132,7 @@ test_that("search accepts successful response through HTTP layer", {
   })
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
 
-  result <- quietly(epb_search_non_domestic(postcode = "LS1 4AP"))
+  result <- quietly(search_non_domestic(postcode = "LS1 4AP"))
 
   expect_equal(nrow(result), 1L)
   expect_equal(result$postcode, "LS1 4AP")
@@ -140,7 +140,7 @@ test_that("search accepts successful response through HTTP layer", {
 })
 
 test_that("search validates filters and pagination", {
-  expect_error(epb_search_domestic(), "named search filter")
-  expect_error(epb_search_domestic(postcode = "LS1", page_size = 0), "page_size")
-  expect_error(epb_search_domestic(postcode = "LS1", page_size = 5001), "page_size")
+  expect_error(search_domestic(), "named search filter")
+  expect_error(search_domestic(postcode = "LS1", page_size = 0), "page_size")
+  expect_error(search_domestic(postcode = "LS1", page_size = 5001), "page_size")
 })
