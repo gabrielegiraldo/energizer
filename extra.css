@@ -1,0 +1,8 @@
+[data-bs-theme="light"] pre {
+  background-color: #f1f3f5;
+}
+
+[data-bs-theme="light"] pre code,
+[data-bs-theme="light"] pre code * {
+  background-color: transparent;
+}
