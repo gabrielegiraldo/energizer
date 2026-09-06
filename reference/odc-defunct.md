@@ -2,7 +2,7 @@
 
 Open Data Communities API and Basic Authentication workflow were
 replaced by Get energy performance of buildings data API. Use
-corresponding `epb_*` function.
+corresponding public API function.
 
 ## Usage
 

@@ -82,14 +82,14 @@
 </h2>
 <p>Sign in to service, copy bearer token from <strong>My account</strong>, then set it for current R session:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_set_token.html">epb_set_token</a></span><span class="op">(</span><span class="st">"your-bearer-token"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/set_token.html">set_token</a></span><span class="op">(</span><span class="st">"your-bearer-token"</span><span class="op">)</span></span></code></pre></div>
 <p>For non-interactive use, set <code>EPB_BEARER_TOKEN</code> before starting R. Do not commit token to source control.</p>
 </div>
 <div class="section level2">
 <h2 id="fetch-certificate">Fetch certificate<a class="anchor" aria-label="anchor" href="#fetch-certificate"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">certificate</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_certificate.html">epb_get_certificate</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">certificate</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/get_certificate.html">get_certificate</a></span><span class="op">(</span></span>
 <span>  <span class="st">"1111-2222-3333-4444-5555"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -98,22 +98,22 @@
 </h2>
 <p>Search domestic, non-domestic or display certificates with API filters:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">domestic</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_domestic.html">epb_search_domestic</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">domestic</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/search_domestic.html">search_domestic</a></span><span class="op">(</span></span>
 <span>  postcode <span class="op">=</span> <span class="st">"LS1 4AP"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">non_domestic</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_non_domestic.html">epb_search_non_domestic</a></span><span class="op">(</span></span>
+<span><span class="va">non_domestic</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/search_non_domestic.html">search_non_domestic</a></span><span class="op">(</span></span>
 <span>  council <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Manchester"</span>, <span class="st">"Salford"</span><span class="op">)</span>,</span>
 <span>  efficiency_rating <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"G"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">display</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_display.html">epb_search_display</a></span><span class="op">(</span></span>
+<span><span class="va">display</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/search_display.html">search_display</a></span><span class="op">(</span></span>
 <span>  date_start <span class="op">=</span> <span class="st">"2025-01-01"</span>,</span>
 <span>  date_end <span class="op">=</span> <span class="st">"2025-01-31"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Retrieve all pages or cap result size:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_search_domestic.html">epb_search_domestic</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/search_domestic.html">search_domestic</a></span><span class="op">(</span></span>
 <span>  address <span class="op">=</span> <span class="st">"Liverpool Road"</span>,</span>
 <span>  paginate <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  max_records <span class="op">=</span> <span class="fl">10000</span></span>
@@ -125,7 +125,7 @@
 <h2 id="changed-certificates">Changed certificates<a class="anchor" aria-label="anchor" href="#changed-certificates"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">changes</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_deltas.html">epb_get_deltas</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">changes</span> <span class="op">&lt;-</span> <span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/get_deltas.html">get_deltas</a></span><span class="op">(</span></span>
 <span>  <span class="st">"2025-01-01"</span>,</span>
 <span>  <span class="st">"2025-01-31"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -135,23 +135,23 @@
 </h2>
 <p>Monthly full-load datasets can be large. Download ZIP first; extraction is optional:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_domestic.html">epb_download_domestic</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/download_domestic.html">download_domestic</a></span><span class="op">(</span></span>
 <span>  format <span class="op">=</span> <span class="st">"csv"</span>,</span>
 <span>  destination_path <span class="op">=</span> <span class="st">"data"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_info.html">epb_download_info</a></span><span class="op">(</span><span class="st">"domestic"</span>, <span class="st">"csv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/download_info.html">download_info</a></span><span class="op">(</span><span class="st">"domestic"</span>, <span class="st">"csv"</span><span class="op">)</span></span></code></pre></div>
 <p>Recommendation datasets are JSON-only:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_non_domestic_recommendations_json.html">epb_download_non_domestic_recommendations_json</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
-<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_download_display_recommendations_json.html">epb_download_display_recommendations_json</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/download_non_domestic_recommendations_json.html">download_non_domestic_recommendations_json</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/download_display_recommendations_json.html">download_display_recommendations_json</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="epc-codes">EPC codes<a class="anchor" aria-label="anchor" href="#epc-codes"></a>
 </h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_codes.html">epb_get_codes</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/epb_get_code_info.html">epb_get_code_info</a></span><span class="op">(</span><span class="st">"built_form"</span>, key <span class="op">=</span> <span class="st">"NR"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/get_codes.html">get_codes</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">energizer</span><span class="fu">::</span><span class="fu"><a href="reference/get_code_info.html">get_code_info</a></span><span class="op">(</span><span class="st">"built_form"</span>, key <span class="op">=</span> <span class="st">"NR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="migration-from-0100">Migration from 0.10.0<a class="anchor" aria-label="anchor" href="#migration-from-0100"></a>
@@ -168,33 +168,33 @@
 <tbody>
 <tr>
 <td><code><a href="reference/odc-defunct.html">odc_set_key()</a></code></td>
-<td><code><a href="reference/epb_set_token.html">epb_set_token()</a></code></td>
+<td><code><a href="reference/set_token.html">set_token()</a></code></td>
 </tr>
 <tr>
 <td><code><a href="reference/odc-defunct.html">odc_get_data()</a></code></td>
-<td><code><a href="reference/epb_get_certificate.html">epb_get_certificate()</a></code></td>
+<td><code><a href="reference/get_certificate.html">get_certificate()</a></code></td>
 </tr>
 <tr>
 <td><code><a href="reference/odc-defunct.html">odc_search_data()</a></code></td>
 <td>
-<code><a href="reference/epb_search_domestic.html">epb_search_domestic()</a></code>, <code><a href="reference/epb_search_non_domestic.html">epb_search_non_domestic()</a></code>, or <code><a href="reference/epb_search_display.html">epb_search_display()</a></code>
+<code><a href="reference/search_domestic.html">search_domestic()</a></code>, <code><a href="reference/search_non_domestic.html">search_non_domestic()</a></code>, or <code><a href="reference/search_display.html">search_display()</a></code>
 </td>
 </tr>
 <tr>
 <td><code><a href="reference/odc-defunct.html">odc_bulk_download()</a></code></td>
 <td>
-<code><a href="reference/epb_download_full_load.html">epb_download_full_load()</a></code> or type-specific download functions</td>
+<code><a href="reference/download_full_load.html">download_full_load()</a></code> or type-specific download functions</td>
 </tr>
 <tr>
 <td>
 <code><a href="reference/odc-defunct.html">odc_get_file()</a></code> / <code><a href="reference/odc-defunct.html">odc_get_file_list()</a></code>
 </td>
-<td><code><a href="reference/epb_download_info.html">epb_download_info()</a></code></td>
+<td><code><a href="reference/download_info.html">download_info()</a></code></td>
 </tr>
 <tr>
 <td><code><a href="reference/odc-defunct.html">odc_get_schema()</a></code></td>
 <td>
-<code><a href="reference/epb_get_codes.html">epb_get_codes()</a></code> / <code><a href="reference/epb_get_code_info.html">epb_get_code_info()</a></code>
+<code><a href="reference/get_codes.html">get_codes()</a></code> / <code><a href="reference/get_code_info.html">get_code_info()</a></code>
 </td>
 </tr>
 </tbody>

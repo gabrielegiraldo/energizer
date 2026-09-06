@@ -22,7 +22,7 @@ for current R session:
 
 ``` r
 
-energizer::epb_set_token("your-bearer-token")
+energizer::set_token("your-bearer-token")
 ```
 
 For non-interactive use, set `EPB_BEARER_TOKEN` before starting R. Do
@@ -32,7 +32,7 @@ not commit token to source control.
 
 ``` r
 
-certificate <- energizer::epb_get_certificate(
+certificate <- energizer::get_certificate(
   "1111-2222-3333-4444-5555"
 )
 ```
@@ -43,16 +43,16 @@ Search domestic, non-domestic or display certificates with API filters:
 
 ``` r
 
-domestic <- energizer::epb_search_domestic(
+domestic <- energizer::search_domestic(
   postcode = "LS1 4AP"
 )
 
-non_domestic <- energizer::epb_search_non_domestic(
+non_domestic <- energizer::search_non_domestic(
   council = c("Manchester", "Salford"),
   efficiency_rating = c("F", "G")
 )
 
-display <- energizer::epb_search_display(
+display <- energizer::search_display(
   date_start = "2025-01-01",
   date_end = "2025-01-31"
 )
@@ -62,7 +62,7 @@ Retrieve all pages or cap result size:
 
 ``` r
 
-results <- energizer::epb_search_domestic(
+results <- energizer::search_domestic(
   address = "Liverpool Road",
   paginate = "all",
   max_records = 10000
@@ -75,7 +75,7 @@ attr(results, "pagination")
 
 ``` r
 
-changes <- energizer::epb_get_deltas(
+changes <- energizer::get_deltas(
   "2025-01-01",
   "2025-01-31"
 )
@@ -88,40 +88,40 @@ is optional:
 
 ``` r
 
-energizer::epb_download_domestic(
+energizer::download_domestic(
   format = "csv",
   destination_path = "data"
 )
 
-energizer::epb_download_info("domestic", "csv")
+energizer::download_info("domestic", "csv")
 ```
 
 Recommendation datasets are JSON-only:
 
 ``` r
 
-energizer::epb_download_non_domestic_recommendations_json("data")
-energizer::epb_download_display_recommendations_json("data")
+energizer::download_non_domestic_recommendations_json("data")
+energizer::download_display_recommendations_json("data")
 ```
 
 ## EPC codes
 
 ``` r
 
-energizer::epb_get_codes()
-energizer::epb_get_code_info("built_form", key = "NR")
+energizer::get_codes()
+energizer::get_code_info("built_form", key = "NR")
 ```
 
 ## Migration from 0.10.0
 
 | Old function | Replacement |
 |----|----|
-| [`odc_set_key()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`epb_set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_set_token.md) |
-| [`odc_get_data()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`epb_get_certificate()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_certificate.md) |
-| [`odc_search_data()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`epb_search_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_search_domestic.md), [`epb_search_non_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_search_non_domestic.md), or [`epb_search_display()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_search_display.md) |
-| [`odc_bulk_download()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`epb_download_full_load()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_full_load.md) or type-specific download functions |
-| [`odc_get_file()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) / [`odc_get_file_list()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`epb_download_info()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_info.md) |
-| [`odc_get_schema()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`epb_get_codes()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_codes.md) / [`epb_get_code_info()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_code_info.md) |
+| [`odc_set_key()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/set_token.md) |
+| [`odc_get_data()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`get_certificate()`](https://gabrielegiraldo.github.io/enrgz/reference/get_certificate.md) |
+| [`odc_search_data()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`search_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/search_domestic.md), [`search_non_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/search_non_domestic.md), or [`search_display()`](https://gabrielegiraldo.github.io/enrgz/reference/search_display.md) |
+| [`odc_bulk_download()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`download_full_load()`](https://gabrielegiraldo.github.io/enrgz/reference/download_full_load.md) or type-specific download functions |
+| [`odc_get_file()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) / [`odc_get_file_list()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`download_info()`](https://gabrielegiraldo.github.io/enrgz/reference/download_info.md) |
+| [`odc_get_schema()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md) | [`get_codes()`](https://gabrielegiraldo.github.io/enrgz/reference/get_codes.md) / [`get_code_info()`](https://gabrielegiraldo.github.io/enrgz/reference/get_code_info.md) |
 
 Old `odc_*` functions are defunct because old API authentication,
 LMK-key endpoints and local-authority file listings no longer exist.
@@ -134,36 +134,28 @@ LMK-key endpoints and local-authority file listings no longer exist.
 
 ## All functions
 
-- [`epb_download_display()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_display.md)
+- [`download_display()`](https://gabrielegiraldo.github.io/enrgz/reference/download_display.md)
   : Download display full-load data
-- [`epb_download_display_recommendations_json()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_display_recommendations_json.md)
+- [`download_display_recommendations_json()`](https://gabrielegiraldo.github.io/enrgz/reference/download_display_recommendations_json.md)
   : Download display recommendation data
-- [`epb_download_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_domestic.md)
+- [`download_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/download_domestic.md)
   : Download domestic full-load data
-- [`epb_download_full_load()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_full_load.md)
+- [`download_full_load()`](https://gabrielegiraldo.github.io/enrgz/reference/download_full_load.md)
   : Download a full-load energy certificate dataset
-- [`epb_download_info()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_info.md)
+- [`download_info()`](https://gabrielegiraldo.github.io/enrgz/reference/download_info.md)
   : Fetch full-load download metadata
-- [`epb_download_non_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_non_domestic.md)
+- [`download_non_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/download_non_domestic.md)
   : Download non-domestic full-load data
-- [`epb_download_non_domestic_recommendations_json()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_download_non_domestic_recommendations_json.md)
+- [`download_non_domestic_recommendations_json()`](https://gabrielegiraldo.github.io/enrgz/reference/download_non_domestic_recommendations_json.md)
   : Download non-domestic recommendation data
-- [`epb_get_certificate()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_certificate.md)
+- [`get_certificate()`](https://gabrielegiraldo.github.io/enrgz/reference/get_certificate.md)
   : Fetch an energy certificate
-- [`epb_get_code_info()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_code_info.md)
+- [`get_code_info()`](https://gabrielegiraldo.github.io/enrgz/reference/get_code_info.md)
   : Fetch EPC code values
-- [`epb_get_codes()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_codes.md)
+- [`get_codes()`](https://gabrielegiraldo.github.io/enrgz/reference/get_codes.md)
   : Fetch available EPC code tables
-- [`epb_get_deltas()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_get_deltas.md)
+- [`get_deltas()`](https://gabrielegiraldo.github.io/enrgz/reference/get_deltas.md)
   : Fetch changed energy certificates
-- [`epb_search_display()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_search_display.md)
-  : Search display energy certificates
-- [`epb_search_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_search_domestic.md)
-  : Search domestic energy certificates
-- [`epb_search_non_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_search_non_domestic.md)
-  : Search non-domestic energy certificates
-- [`epb_set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_set_token.md)
-  : Set Energy Performance API bearer token
 - [`odc_set_key()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md)
   [`odc_get_data()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md)
   [`odc_search_data()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md)
@@ -173,4 +165,12 @@ LMK-key endpoints and local-authority file listings no longer exist.
   [`odc_get_meta()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md)
   [`odc_get_schema()`](https://gabrielegiraldo.github.io/enrgz/reference/odc-defunct.md)
   : Defunct Open Data Communities API functions
+- [`search_display()`](https://gabrielegiraldo.github.io/enrgz/reference/search_display.md)
+  : Search display energy certificates
+- [`search_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/search_domestic.md)
+  : Search domestic energy certificates
+- [`search_non_domestic()`](https://gabrielegiraldo.github.io/enrgz/reference/search_non_domestic.md)
+  : Search non-domestic energy certificates
+- [`set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/set_token.md)
+  : Set Energy Performance API bearer token
 

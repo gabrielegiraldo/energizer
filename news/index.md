@@ -4,11 +4,11 @@
 
 - Migrated to Get energy performance of buildings data API.
 - Added bearer-token authentication through
-  [`epb_set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/epb_set_token.md)
+  [`set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/set_token.md)
   and `EPB_BEARER_TOKEN`.
 - Added certificate retrieval, three certificate search functions,
   change events, code tables, full-load downloads and download metadata
-  under new `epb_*` interface.
+  under new public API.
 - Added page-based pagination using API `pagination` response object.
 - Marked legacy `odc_*` interface defunct because Open Data Communities
   API and Basic Authentication workflow are obsolete.
