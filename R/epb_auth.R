@@ -12,9 +12,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' epb_set_token("your-bearer-token")
+#' set_token("your-bearer-token")
 #' }
-epb_set_token <- function(token, overwrite = FALSE) {
+set_token <- function(token, overwrite = FALSE) {
   if (!rlang::is_string(token) || !nzchar(trimws(token))) {
     cli::cli_abort("{.arg token} must be a non-empty character string.")
   }
@@ -53,7 +53,7 @@ epb_get_token <- function() {
   if (!nzchar(token)) {
     cli::cli_abort(c(
       "No Energy Performance API bearer token found.",
-      "i" = "Copy token from service's My account page and call {.fn epb_set_token}."
+      "i" = "Copy token from service's My account page and call {.fn set_token}."
     ))
   }
 

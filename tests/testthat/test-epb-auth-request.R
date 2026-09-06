@@ -1,19 +1,19 @@
-test_that("epb_set_token stores normalized bearer token", {
+test_that("set_token stores normalized bearer token", {
   withr::local_envvar(c(EPB_BEARER_TOKEN = ""))
 
-  expect_message(epb_set_token("  Bearer token-value  "), "Bearer token set")
+  expect_message(set_token("  Bearer token-value  "), "Bearer token set")
   expect_equal(Sys.getenv("EPB_BEARER_TOKEN"), "token-value")
-  expect_error(epb_set_token("replacement"), "already set")
-  expect_message(epb_set_token("replacement", overwrite = TRUE))
+  expect_error(set_token("replacement"), "already set")
+  expect_message(set_token("replacement", overwrite = TRUE))
   expect_equal(Sys.getenv("EPB_BEARER_TOKEN"), "replacement")
 })
 
-test_that("epb_set_token validates token", {
+test_that("set_token validates token", {
   withr::local_envvar(c(EPB_BEARER_TOKEN = ""))
 
-  expect_error(epb_set_token(""), "non-empty")
-  expect_error(epb_set_token(NULL), "non-empty")
-  expect_error(epb_set_token("Bearer "), "bearer token value")
+  expect_error(set_token(""), "non-empty")
+  expect_error(set_token(NULL), "non-empty")
+  expect_error(set_token("Bearer "), "bearer token value")
 })
 
 test_that("epb_get_token errors when token is missing", {

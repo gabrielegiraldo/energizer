@@ -42,9 +42,9 @@ epb_download_endpoint <- function(type, info = FALSE) {
 #'
 #' @examples
 #' \dontrun{
-#' epb_download_full_load("domestic", "csv", tempdir())
+#' download_full_load("domestic", "csv", tempdir())
 #' }
-epb_download_full_load <- function(
+download_full_load <- function(
   type = .epb_download_types,
   format = c("csv", "json"),
   destination_path = ".",
@@ -100,11 +100,11 @@ epb_download_full_load <- function(
 
 #' Fetch full-load download metadata
 #'
-#' @inheritParams epb_download_full_load
+#' @inheritParams download_full_load
 #'
 #' @return A one-row tibble containing file size and last-updated timestamp.
 #' @export
-epb_download_info <- function(
+download_info <- function(
   type = .epb_download_types,
   format = c("csv", "json")
 ) {
@@ -118,69 +118,69 @@ epb_download_info <- function(
 }
 
 #' Download domestic full-load data
-#' @inheritParams epb_download_full_load
+#' @inheritParams download_full_load
 #' @export
-epb_download_domestic <- function(
+download_domestic <- function(
   format = c("csv", "json"),
   destination_path = ".",
   unzip = FALSE,
   overwrite = FALSE
 ) {
-  epb_download_full_load(
+  download_full_load(
     "domestic", format, destination_path, unzip, overwrite
   )
 }
 
 #' Download non-domestic full-load data
-#' @inheritParams epb_download_full_load
+#' @inheritParams download_full_load
 #' @export
-epb_download_non_domestic <- function(
+download_non_domestic <- function(
   format = c("csv", "json"),
   destination_path = ".",
   unzip = FALSE,
   overwrite = FALSE
 ) {
-  epb_download_full_load(
+  download_full_load(
     "non_domestic", format, destination_path, unzip, overwrite
   )
 }
 
 #' Download display full-load data
-#' @inheritParams epb_download_full_load
+#' @inheritParams download_full_load
 #' @export
-epb_download_display <- function(
+download_display <- function(
   format = c("csv", "json"),
   destination_path = ".",
   unzip = FALSE,
   overwrite = FALSE
 ) {
-  epb_download_full_load(
+  download_full_load(
     "display", format, destination_path, unzip, overwrite
   )
 }
 
 #' Download non-domestic recommendation data
-#' @inheritParams epb_download_full_load
+#' @inheritParams download_full_load
 #' @export
-epb_download_non_domestic_recommendations_json <- function(
+download_non_domestic_recommendations_json <- function(
   destination_path = ".",
   unzip = FALSE,
   overwrite = FALSE
 ) {
-  epb_download_full_load(
+  download_full_load(
     "non_domestic_recommendation", "json", destination_path, unzip, overwrite
   )
 }
 
 #' Download display recommendation data
-#' @inheritParams epb_download_full_load
+#' @inheritParams download_full_load
 #' @export
-epb_download_display_recommendations_json <- function(
+download_display_recommendations_json <- function(
   destination_path = ".",
   unzip = FALSE,
   overwrite = FALSE
 ) {
-  epb_download_full_load(
+  download_full_load(
     "display_recommendation", "json", destination_path, unzip, overwrite
   )
 }

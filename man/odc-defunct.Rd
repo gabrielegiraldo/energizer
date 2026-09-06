@@ -36,6 +36,6 @@ These functions always throw a defunct-function error.
 }
 \description{
 Open Data Communities API and Basic Authentication workflow were replaced by
-Get energy performance of buildings data API. Use corresponding \verb{epb_*}
+Get energy performance of buildings data API. Use corresponding public API
 function.
 }

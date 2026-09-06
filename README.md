@@ -30,7 +30,7 @@ Sign in to service, copy bearer token from **My account**, then set it
 for current R session:
 
 ``` r
-energizer::epb_set_token("your-bearer-token")
+energizer::set_token("your-bearer-token")
 ```
 
 For non-interactive use, set `EPB_BEARER_TOKEN` before starting R. Do
@@ -39,7 +39,7 @@ not commit token to source control.
 ## Fetch certificate
 
 ``` r
-certificate <- energizer::epb_get_certificate(
+certificate <- energizer::get_certificate(
   "1111-2222-3333-4444-5555"
 )
 ```
@@ -49,16 +49,16 @@ certificate <- energizer::epb_get_certificate(
 Search domestic, non-domestic or display certificates with API filters:
 
 ``` r
-domestic <- energizer::epb_search_domestic(
+domestic <- energizer::search_domestic(
   postcode = "LS1 4AP"
 )
 
-non_domestic <- energizer::epb_search_non_domestic(
+non_domestic <- energizer::search_non_domestic(
   council = c("Manchester", "Salford"),
   efficiency_rating = c("F", "G")
 )
 
-display <- energizer::epb_search_display(
+display <- energizer::search_display(
   date_start = "2025-01-01",
   date_end = "2025-01-31"
 )
@@ -67,7 +67,7 @@ display <- energizer::epb_search_display(
 Retrieve all pages or cap result size:
 
 ``` r
-results <- energizer::epb_search_domestic(
+results <- energizer::search_domestic(
   address = "Liverpool Road",
   paginate = "all",
   max_records = 10000
@@ -79,7 +79,7 @@ attr(results, "pagination")
 ## Changed certificates
 
 ``` r
-changes <- energizer::epb_get_deltas(
+changes <- energizer::get_deltas(
   "2025-01-01",
   "2025-01-31"
 )
@@ -91,38 +91,38 @@ Monthly full-load datasets can be large. Download ZIP first; extraction
 is optional:
 
 ``` r
-energizer::epb_download_domestic(
+energizer::download_domestic(
   format = "csv",
   destination_path = "data"
 )
 
-energizer::epb_download_info("domestic", "csv")
+energizer::download_info("domestic", "csv")
 ```
 
 Recommendation datasets are JSON-only:
 
 ``` r
-energizer::epb_download_non_domestic_recommendations_json("data")
-energizer::epb_download_display_recommendations_json("data")
+energizer::download_non_domestic_recommendations_json("data")
+energizer::download_display_recommendations_json("data")
 ```
 
 ## EPC codes
 
 ``` r
-energizer::epb_get_codes()
-energizer::epb_get_code_info("built_form", key = "NR")
+energizer::get_codes()
+energizer::get_code_info("built_form", key = "NR")
 ```
 
 ## Migration from 0.10.0
 
 | Old function                             | Replacement                                                                     |
 |------------------------------------------|---------------------------------------------------------------------------------|
-| `odc_set_key()`                          | `epb_set_token()`                                                               |
-| `odc_get_data()`                         | `epb_get_certificate()`                                                         |
-| `odc_search_data()`                      | `epb_search_domestic()`, `epb_search_non_domestic()`, or `epb_search_display()` |
-| `odc_bulk_download()`                    | `epb_download_full_load()` or type-specific download functions                  |
-| `odc_get_file()` / `odc_get_file_list()` | `epb_download_info()`                                                           |
-| `odc_get_schema()`                       | `epb_get_codes()` / `epb_get_code_info()`                                       |
+| `odc_set_key()`                          | `set_token()`                                                                   |
+| `odc_get_data()`                         | `get_certificate()`                                                             |
+| `odc_search_data()`                      | `search_domestic()`, `search_non_domestic()`, or `search_display()`             |
+| `odc_bulk_download()`                    | `download_full_load()` or type-specific download functions                      |
+| `odc_get_file()` / `odc_get_file_list()` | `download_info()`                                                               |
+| `odc_get_schema()`                       | `get_codes()` / `get_code_info()`                                               |
 
 Old `odc_*` functions are defunct because old API authentication,
 LMK-key endpoints and local-authority file listings no longer exist.

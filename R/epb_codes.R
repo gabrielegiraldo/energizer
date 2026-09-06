@@ -5,9 +5,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' epb_get_codes()
+#' get_codes()
 #' }
-epb_get_codes <- function() {
+get_codes <- function() {
   response <- epb_perform(epb_request("api/codes"))
   body <- httr2::resp_body_json(response, simplifyVector = FALSE)
 
@@ -20,7 +20,7 @@ epb_get_codes <- function() {
 
 #' Fetch EPC code values
 #'
-#' @param code Code table name returned by [epb_get_codes()].
+#' @param code Code table name returned by [get_codes()].
 #' @param key Optional code key.
 #' @param schema_version Optional EPC schema version. Sent as `schemaVersion`.
 #'
@@ -29,10 +29,10 @@ epb_get_codes <- function() {
 #'
 #' @examples
 #' \dontrun{
-#' epb_get_code_info("built_form")
-#' epb_get_code_info("built_form", key = "NR", schema_version = "RdSAP-Schema-17.0")
+#' get_code_info("built_form")
+#' get_code_info("built_form", key = "NR", schema_version = "RdSAP-Schema-17.0")
 #' }
-epb_get_code_info <- function(code, key = NULL, schema_version = NULL) {
+get_code_info <- function(code, key = NULL, schema_version = NULL) {
   if (!rlang::is_string(code) || !nzchar(trimws(code))) {
     cli::cli_abort("{.arg code} must be a non-empty character string.")
   }

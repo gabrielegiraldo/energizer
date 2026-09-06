@@ -12,7 +12,7 @@ test_that("download saves ZIP and uses documented endpoint", {
   destination <- withr::local_tempdir()
 
   expect_message(
-    path <- epb_download_domestic("csv", destination),
+    path <- download_domestic("csv", destination),
     "Saved full-load dataset"
   )
 
@@ -34,7 +34,7 @@ test_that("recommendation downloads use singular path", {
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
   destination <- withr::local_tempdir()
 
-  epb_download_non_domestic_recommendations_json(destination)
+  download_non_domestic_recommendations_json(destination)
   expect_match(captured_request$url, "/api/files/non-domestic-recommendation/json")
 })
 
@@ -52,14 +52,14 @@ test_that("download info uses documented plural recommendation path", {
   )
   withr::local_envvar(c(EPB_BEARER_TOKEN = "secret"))
 
-  result <- epb_download_info("display_recommendation", "json")
+  result <- download_info("display_recommendation", "json")
   expect_equal(result$file_size, 123L)
   expect_match(captured_request$url, "/api/files/display-recommendations/json/info")
 })
 
 test_that("recommendation downloads reject CSV", {
   expect_error(
-    epb_download_full_load("display_recommendation", "csv", tempdir()),
+    download_full_load("display_recommendation", "csv", tempdir()),
     "JSON only"
   )
 })
