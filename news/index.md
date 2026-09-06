@@ -1,5 +1,15 @@
 # Changelog
 
+## energizer 2.0.0
+
+- Renamed exported API functions from `epb_*` to unprefixed names,
+  including
+  [`set_token()`](https://gabrielegiraldo.github.io/enrgz/reference/set_token.md),
+  [`get_certificate()`](https://gabrielegiraldo.github.io/enrgz/reference/get_certificate.md),
+  `search_*()`, and `download_*()`.
+- Removed the exported `epb_*` API. Internal implementation helpers
+  retain their `epb_` prefix.
+
 ## energizer 1.0.0
 
 - Migrated to Get energy performance of buildings data API.
