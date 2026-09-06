@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/gabrielegiraldo/energizer/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/gabrielegiraldo/energizer/blob/v2.0.0/DESCRIPTION)
 
 Giraldo G (2026). *energizer: Client for the Energy Performance of
 Buildings Data API*. R package version 2.0.0,
